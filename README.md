@@ -5,7 +5,7 @@ Meteor boosters simplifies your live. I can perform common "boilerplate" operati
 Using Meteor boosters you can:
 
 * initialise new project basing on [Meteor 1.4 file structure concepts](https://guide.meteor.com/structure.html#javascript-structure). 
-* configure settings files in accorance with the [Settings composition concept](https://github.com/IcyEagle/meteor-boosters/new/master?readme=1#settings-file-composition)
+* configure settings files in accorance with the [Settings composition concept](https://github.com/IcyEagle/meteor-boosters#settings-file-composition)
 
 # Settings file composition
 
