@@ -1,0 +1,25 @@
+{
+  "name": "boosters",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "boost": "bin/boosters"
+  },
+  "dependencies": {
+    "colors": "^1.1.2",
+    "commander": "^2.9.0",
+    "prompt": "git+https://github.com/flatiron/prompt.git#d55067402b026be490b35c9db07f233bb46d5c9e"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/IcyEagle/boosters.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/IcyEagle/boosters#readme"
+}

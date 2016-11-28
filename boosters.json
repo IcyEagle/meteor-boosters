@@ -1,0 +1,11 @@
+{
+  "projectSettings": "settings.json",
+  "secureDirectory": "../../Dropbox/workspace/%name%",
+  "settingsDirectory": "settings",
+  "environments": ["all", "dev", "stage", "prod"],
+  "environmentFiles": {
+    "main": "%ENV%.json",
+    "specific": "%ENV%.specific.json",
+    "local": "%ENV%.local.json"
+  }
+}

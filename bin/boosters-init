@@ -1,0 +1,17 @@
+#!/usr/bin/env coffee
+fs = require "fs"
+{output, ensureDirectory, checkFile, SETTINGS_FILE, SETTINGS_DIR} = require "../helpers"
+require('colors')
+
+cwd = process.cwd()
+original = "#{__dirname}/../#{SETTINGS_FILE}"
+directory = "#{cwd}/#{SETTINGS_DIR}"
+path = "#{directory}/#{SETTINGS_FILE}"
+
+unless checkFile path
+	ensureDirectory directory
+	content = fs.readFileSync original, "utf-8"
+	fs.writeFileSync path, content
+	output "Boosters has been successfully initialised. Try 'boost setup' now!".green
+else
+	output "Boosters is already initialised here. Try 'boost setup' to get something new!".white

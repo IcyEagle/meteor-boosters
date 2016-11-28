@@ -1,0 +1,39 @@
+#!/usr/bin/env coffee
+prompt = require "prompt"
+fs = require "fs"
+{output, checkFile, getProjectSettingsPath, getDefaultSecureDirectoryPath} = require "../helpers"
+require "colors"
+
+configureGitIgnore = require "../setup/configureGitIgnore"
+saveProjectSettings = require "../setup/saveProjectSettings"
+configureSettings = require "../setup/configureSettings"
+
+prompt.message = ""
+prompt.delimiter = ""
+settings = require "../boosters.json"
+
+projectSettingsPath = getProjectSettingsPath settings
+unless checkFile projectSettingsPath
+	prompt.start()
+
+	prompt.get properties:
+		projectName:
+			description: "Enter your project name".cyan
+			type: "string"
+			required: true
+		secureDirectory:
+			description: "Set the directory for private configuration files (with keys, credentials etc.)".cyan
+			type: "string"
+			required: true
+			default: -> getDefaultSecureDirectoryPath(settings).replace "%name%", prompt.history("projectName").value
+			message: "Make sure the directory is available"
+			conform: checkFile
+
+	, (error, projectSettings) ->
+		throw new Error "Unable to get user input #{error}" if error
+
+		saveProjectSettings settings, projectSettings
+		configureGitIgnore settings
+		configureSettings settings, projectSettings
+else
+	output "The project has already been configured. No need to configure again.".cyan
