@@ -31,4 +31,14 @@ Setup your project structure
 boost setup
 ```
 
+Do you want to configure Mongo DB connection once and use it forever?
+```bash
+boost mongo
+```
+or faster
+```bash
+boost mongo prod
+```
+if you know what environment you're interested in!
+
 Have fun! :)
