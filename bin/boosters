@@ -5,5 +5,5 @@ program
 	.version("1.0.0")
 	.command "init", "create Boosters configuration files"
 	.command "setup", "configure the project in accordance with user preferences"
-#	.command("list", "list packages installed", {isDefault: true})
+	.command "mongo", "configure MongoDB connection to a remote database"
 	.parse(process.argv)

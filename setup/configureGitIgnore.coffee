@@ -1,12 +1,9 @@
 fs = require "fs"
-{output, checkFile} = require "../helpers"
+{output, checkFile, SETTINGS_DIR} = require "../helpers"
 
-module.exports = (settings) ->
-	file = ".gitignore"
+file = ".gitignore"
 
-	content = if checkFile file then fs.readFileSync file, "utf-8" else ""
-
-	line = "#{settings["settingsDirectory"]}/#{settings["environmentFiles"]["local"]}".replace "%ENV%", "*"
+ensureLine = (content, line) ->
 	has = content.indexOf(line) isnt -1
 	if has
 		output "#{file} is already configured".yellow
@@ -14,3 +11,10 @@ module.exports = (settings) ->
 		content += line + "\n"
 		fs.writeFileSync file, content
 		output "Modify #{file}".green
+
+module.exports = (settings) ->
+	content = if checkFile file then fs.readFileSync file, "utf-8" else ""
+
+	line = "#{settings["settingsDirectory"]}/#{settings["environmentFiles"]["local"]}".replace "%ENV%", "*"
+	ensureLine content, line
+	ensureLine "/#{SETTINGS_DIR}"

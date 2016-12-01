@@ -9,6 +9,7 @@
   "dependencies": {
     "colors": "^1.1.2",
     "commander": "^2.9.0",
+    "optimist": "^0.6.1",
     "prompt": "git+https://github.com/flatiron/prompt.git#d55067402b026be490b35c9db07f233bb46d5c9e"
   },
   "scripts": {

@@ -2,6 +2,7 @@ fs = require "fs"
 
 SETTINGS_DIR = ".boosters"
 SETTINGS_FILE = "boosters.json"
+MONGO_FILE = "mongo.json"
 
 output = -> console.log.apply null, arguments
 
@@ -14,6 +15,8 @@ formatJSON = (json) -> JSON.stringify json, null, '\t'
 
 getProjectSettingsPath = (settings) -> "#{process.cwd()}/#{SETTINGS_DIR}/#{settings["projectSettings"]}"
 
+getMongoSettingsPath = -> "#{process.cwd()}/#{SETTINGS_DIR}/#{MONGO_FILE}"
+
 getDefaultSecureDirectoryPath = (settings) -> "#{process.cwd()}/#{settings["secureDirectory"]}"
 
 module.exports =
@@ -23,5 +26,6 @@ module.exports =
 	formatJSON: formatJSON
 	getProjectSettingsPath: getProjectSettingsPath
 	getDefaultSecureDirectoryPath: getDefaultSecureDirectoryPath
+	getMongoSettingsPath: getMongoSettingsPath
 	SETTINGS_FILE: SETTINGS_FILE
 	SETTINGS_DIR: SETTINGS_DIR

@@ -1,0 +1,63 @@
+#!/usr/bin/env coffee
+prompt = require "prompt"
+optimist = require "optimist"
+fs = require "fs"
+{exec} = require "child_process"
+{output, checkFile, getMongoSettingsPath, formatJSON} = require "../helpers"
+require "colors"
+
+if optimist.argv._.length
+	prompt.override =
+		env: optimist.argv._[0]
+
+prompt.start()
+
+prompt.get properties:
+	env:
+		description: "Choose environment".cyan
+		type: "string"
+		required: true
+		default: "prod"
+, (error, {env}) ->
+	throw new Error "Unable to get user input #{error}" if error
+
+	mongoSettings = {}
+	mongoSettings = require getMongoSettingsPath() if checkFile getMongoSettingsPath()
+
+	connect = ({username, password, host, port, db}) ->
+		proc = exec "mongo #{host}:#{port}/#{db} -u #{username} -p #{password}", -> process.exit()
+		process.stdin.pipe proc.stdin
+		proc.stdout.pipe process.stdout
+		proc.stderr.pipe process.stderr
+		proc.stdin.write "\n"
+
+	unless mongoSettings[env]
+		prompt.get properties:
+			username:
+				description: "Enter username".cyan
+				type: "string"
+				required: true
+			password:
+				description: "Enter password".cyan
+				type: "string"
+				required: true
+			host:
+				description: "Enter Host".cyan
+				type: "string"
+				required: true
+			port:
+				description: "Enter Port".cyan
+				type: "string"
+				required: true
+			db:
+				description: "Enter database name".cyan
+				type: "string"
+				required: true
+		, (error, params) ->
+			throw new Error "Unable to get user input #{error}" if error
+
+			mongoSettings[env] = params
+			fs.writeFileSync getMongoSettingsPath(), formatJSON(mongoSettings)
+			connect mongoSettings[env]
+	else
+		connect mongoSettings[env]
