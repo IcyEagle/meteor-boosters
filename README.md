@@ -16,7 +16,7 @@ _This section explains how the final settings configuration file is produced._
 Get the package
 
 ```bash
-npm install meteor-boosters
+yarn add meteor-boosters
 ```
 
 Initialise the package from the root of your project
